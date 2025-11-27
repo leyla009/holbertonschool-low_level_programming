@@ -1,4 +1,3 @@
-  GNU nano 6.2                                                                          4-puts.c                                                                                   
 #include <stdio.h>
 
 int main(void)
