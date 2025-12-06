@@ -1,42 +1,49 @@
 #include <stdio.h>
 
 /**
- * main - Prints the first 98 Fibonacci numbers starting with 1 and 2
+ * main - Prints the first 98 Fibonacci numbers
  *
  * Return: Always 0
  */
 int main(void)
 {
 	int i;
-	unsigned long a1 = 1, a2 = 2;           /* first two numbers */
-	unsigned long b1 = 0, b2 = 0;           /* high parts */
-	unsigned long next1, next2;
+	unsigned long a = 1, b = 2, a_high, a_low, b_high, b_low;
+	unsigned long high, low;
 
-	printf("%lu, %lu", a1, a2);
+	printf("%lu, %lu", a, b);
 
-	for (i = 3; i <= 98; i++)
+	/* First 92 numbers fit in unsigned long */
+	for (i = 3; i <= 92; i++)
 	{
-		if (a1 + a2 < a1)  /* overflow will happen */
+		b = a + b;
+		a = b - a;
+		printf(", %lu", b);
+	}
+
+	/* Split for big numbers starting at 93 */
+	a_high = a / 1000000000;
+	a_low  = a % 1000000000;
+	b_high = b / 1000000000;
+	b_low  = b % 1000000000;
+
+	for (; i <= 98; i++)
+	{
+		high = a_high + b_high;
+		low = a_low + b_low;
+
+		if (low >= 1000000000)
 		{
-			/* Use high + low splitting */
-			next1 = (a1 + a2) % 1000000000;
-			next2 = b1 + b2 + ((a1 + a2) / 1000000000);
-		}
-		else
-		{
-			next1 = a1 + a2;
-			next2 = b1 + b2;
+			low -= 1000000000;
+			high++;
 		}
 
-		if (next2 == 0)
-			printf(", %lu", next1);
-		else
-			printf(", %lu%09lu", next2, next1);
+		printf(", %lu%09lu", high, low);
 
-		a1 = a2;
-		a2 = next1;
-		b1 = b2;
-		b2 = next2;
+		a_high = b_high;
+		a_low = b_low;
+		b_high = high;
+		b_low = low;
 	}
 
 	printf("\n");
