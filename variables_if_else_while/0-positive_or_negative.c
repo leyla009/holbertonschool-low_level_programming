@@ -3,10 +3,10 @@
 #include <stdio.h>
 
 /**
- * main - Assigns a random number to n and prints whether it is positive,
- * zero, or negative
+ * main - Prints whether a randomly generated number is
+ * positive, zero, or negative
  *
- * Return: Always 0 (Success)
+ * Return: Always 0
  */
 int main(void)
 {
