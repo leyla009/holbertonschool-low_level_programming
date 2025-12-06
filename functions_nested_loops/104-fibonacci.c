@@ -8,42 +8,35 @@
 int main(void)
 {
 	int i;
-	unsigned long a = 1, b = 2, a_high, a_low, b_high, b_low;
-	unsigned long high, low;
+	unsigned long a = 1, b = 2;
+	unsigned long a_h, a_l, b_h, b_l, h, l;
 
 	printf("%lu, %lu", a, b);
 
-	/* First 92 numbers fit in unsigned long */
 	for (i = 3; i <= 92; i++)
 	{
-		b = a + b;
+		b += a;
 		a = b - a;
 		printf(", %lu", b);
 	}
 
-	/* Split for big numbers starting at 93 */
-	a_high = a / 1000000000;
-	a_low  = a % 1000000000;
-	b_high = b / 1000000000;
-	b_low  = b % 1000000000;
+	a_h = a / 1000000000;
+	a_l = a % 1000000000;
+	b_h = b / 1000000000;
+	b_l = b % 1000000000;
 
 	for (; i <= 98; i++)
 	{
-		high = a_high + b_high;
-		low = a_low + b_low;
+		h = a_h + b_h;
+		l = a_l + b_l;
 
-		if (low >= 1000000000)
-		{
-			low -= 1000000000;
-			high++;
-		}
+		if (l >= 1000000000)
+			h++, l -= 1000000000;
 
-		printf(", %lu%09lu", high, low);
+		printf(", %lu%09lu", h, l);
 
-		a_high = b_high;
-		a_low = b_low;
-		b_high = high;
-		b_low = low;
+		a_h = b_h, a_l = b_l;
+		b_h = h, b_l = l;
 	}
 
 	printf("\n");
