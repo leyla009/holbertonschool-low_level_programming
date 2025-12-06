@@ -2,50 +2,37 @@
 
 /**
  * print_times_table - Prints the n times table, starting with 0
- * @n: The number defining the table size (must be between 0 and 15)
+ * @n: The number to generate the table for
  *
  * Return: void
  */
 void print_times_table(int n)
 {
-	int row, col, product;
+	int i, j, p;
 
 	if (n < 0 || n > 15)
 		return;
 
-	for (row = 0; row <= n; row++)
+	for (i = 0; i <= n; i++)
 	{
-		for (col = 0; col <= n; col++)
+		for (j = 0; j <= n; j++)
 		{
-			product = row * col;
-
-			if (col == 0)
-			{
-				_putchar(product + '0');
-			}
+			p = i * j;
+			if (j == 0)
+				_putchar(p + '0');
 			else
 			{
 				_putchar(',');
 				_putchar(' ');
-
-				if (product < 10)
-				{
-					_putchar(' ');
-					_putchar(' ');
-					_putchar(product + '0');
-				}
-				else if (product < 100)
-				{
-					_putchar(' ');
-					_putchar((product / 10) + '0');
-					_putchar((product % 10) + '0');
-				}
+				if (p < 10)
+					_putchar(' '), _putchar(' '), _putchar(p + '0');
+				else if (p < 100)
+					_putchar(' '), _putchar((p / 10) + '0'),
+					_putchar((p % 10) + '0');
 				else
-				{
-					_putchar((product / 100) + '0');
-					_putchar(((product / 10) % 10) + '0');
-					_putchar((product % 10) + '0');
-				}
+					_putchar((p / 100) + '0'),
+					_putchar(((p / 10) % 10) + '0'),
+					_putchar((p % 10) + '0');
 			}
 		}
 		_putchar('\n');
