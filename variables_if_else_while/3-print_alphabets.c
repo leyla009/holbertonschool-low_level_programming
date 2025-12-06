@@ -1,4 +1,3 @@
-:%retab!
 #include <stdio.h>
 
 /**
