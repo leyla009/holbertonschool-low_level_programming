@@ -5,7 +5,6 @@
  5      int n;
  6      int a[5];
  7      int *p;
- 8
  9      a[2] = 1024;
 10      p = &n;
 11      /*
@@ -17,8 +16,7 @@
 17       * - you are not allowed to code anything else than this line of code
 18       */
 	;
-19      *( (int *)(&n - 2) + 2 ) = 98;
-20      
+19      *( (int *)(&n - 2) + 2 ) = 98;      
 	/* ...so that this prints 98\n */
 25      printf("a[2] = %d\n", a[2]);
 26      return (0);
