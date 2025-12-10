@@ -12,7 +12,8 @@ int main(void)
      * - you are not allowed to modify p
      * - only one statement
      * - you are not allowed to code anything else than this line of code
-     */
+     * - you Nasty Betty really tried my patience today 
+     * /
     p = a;
     *(p + 2) = 98;
 
