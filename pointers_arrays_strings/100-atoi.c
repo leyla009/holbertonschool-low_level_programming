@@ -8,8 +8,9 @@
  */
 int _atoi(char *s)
 {
-	int i = 0, sign = 1, result = 0;
-	
+	int i = 0, sign = 1;
+	unsigned int result = 0;
+
 	while (s[i] != '\0')
 	{
 		if (s[i] == '-')
@@ -25,6 +26,37 @@ int _atoi(char *s)
 		i++;
 	}
 
-	return (result * sign);
+	if (sign < 0)
+		return ((int)(-result));
+	return ((int)result);
 }
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
