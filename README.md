@@ -36,24 +36,6 @@ File I/O
 
 Algorithms and complexity
 
-📂 Repository Structure
-
-Each directory corresponds to a specific project or topic:
-
-holbertonschool-low_level_programming/
-│
-├── hello_world/
-├── variables_if_else_while/
-├── functions_nested_loops/
-├── pointers_arrays_strings/
-├── recursion/
-├── malloc_free/
-├── structures_typedef/
-├── linked_lists/
-├── bit_manipulation/
-├── file_io/
-└── ...
-
 Each project directory contains:
 
 Source files (.c)
