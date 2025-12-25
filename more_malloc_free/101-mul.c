@@ -1,18 +1,15 @@
-#include "main.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
- * _isdigit - checks if a string contains only digits
- * @s: string
+ * is_digit - checks if a string contains only digits
+ * @s: string to check
  *
- * Return: 1 if digits, 0 otherwise
+ * Return: 1 if only digits, 0 otherwise
  */
-int _isdigit(char *s)
+int is_digit(char *s)
 {
 	int i = 0;
-
-	if (!s || !s[0])
-		return (0);
 
 	while (s[i])
 	{
@@ -24,7 +21,7 @@ int _isdigit(char *s)
 }
 
 /**
- * _strlen - returns length of string
+ * _strlen - returns length of a string
  * @s: string
  *
  * Return: length
@@ -39,74 +36,74 @@ int _strlen(char *s)
 }
 
 /**
- * print_error - prints Error
+ * errors - prints Error and exits with status 98
  */
-void print_error(void)
+void errors(void)
 {
-	_putchar('E');
-	_putchar('r');
-	_putchar('r');
-	_putchar('o');
-	_putchar('r');
-	_putchar('\n');
+	printf("Error\n");
+	exit(98);
 }
 
 /**
- * multiply - multiplies two numbers
- * @n1: first number
- * @n2: second number
+ * main - multiplies two positive numbers
+ * @argc: argument count
+ * @argv: argument vector
+ *
+ * Return: Always 0
  */
-void multiply(char *n1, char *n2)
+int main(int argc, char *argv[])
 {
-	int len1 = _strlen(n1), len2 = _strlen(n2);
-	int len = len1 + len2, i, j, carry, d1, d2;
-	int *res = malloc(sizeof(int) * len);
+	char *num1, *num2;
+	int len1, len2, len, i, j, carry, n1, n2;
+	int *result;
 
-	if (!res)
-		return;
+	if (argc != 3)
+		errors();
+
+	num1 = argv[1];
+	num2 = argv[2];
+
+	if (!is_digit(num1) || !is_digit(num2))
+		errors();
+
+	len1 = _strlen(num1);
+	len2 = _strlen(num2);
+	len = len1 + len2;
+
+	result = malloc(sizeof(int) * len);
+	if (result == NULL)
+		return (1);
 
 	for (i = 0; i < len; i++)
-		res[i] = 0;
+		result[i] = 0;
 
 	for (i = len1 - 1; i >= 0; i--)
 	{
+		n1 = num1[i] - '0';
 		carry = 0;
-		d1 = n1[i] - '0';
+
 		for (j = len2 - 1; j >= 0; j--)
 		{
-			d2 = n2[j] - '0';
-			carry += res[i + j + 1] + d1 * d2;
-			res[i + j + 1] = carry % 10;
+			n2 = num2[j] - '0';
+			carry += result[i + j + 1] + (n1 * n2);
+			result[i + j + 1] = carry % 10;
 			carry /= 10;
 		}
-		res[i + j + 1] += carry;
+		result[i + j + 1] += carry;
 	}
 
 	i = 0;
-	while (i < len && res[i] == 0)
+	while (i < len && result[i] == 0)
 		i++;
 
 	if (i == len)
-		_putchar('0');
+		putchar('0');
 
 	for (; i < len; i++)
-		_putchar(res[i] + '0');
+		putchar(result[i] + '0');
 
-	_putchar('\n');
-	free(res);
-}
+	putchar('\n');
 
-/**
- * main - entry point
- */
-int main(int argc, char **argv)
-{
-	if (argc != 3 || !_isdigit(argv[1]) || !_isdigit(argv[2]))
-	{
-		print_error();
-		return (98);
-	}
-
-	multiply(argv[1], argv[2]);
+	free(result);
 	return (0);
 }
