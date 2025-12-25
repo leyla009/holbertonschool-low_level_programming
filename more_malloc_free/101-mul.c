@@ -49,7 +49,7 @@ void errors(void)
  * @argc: argument count
  * @argv: argument vector
  *
- * Return: Always 0
+ * Return: 0 on success
  */
 int main(int argc, char *argv[])
 {
