@@ -4,42 +4,46 @@
 /**
  * is_digit - checks if a string contains only digits
  * @s: string to check
- * Return: 1 if all digits, 0 otherwise
+ *
+ * Return: 1 if string is numeric, 0 otherwise
  */
 int is_digit(char *s)
 {
-	int i = 0;
+	int i;
 
-	if (!s)
+	if (s == NULL)
 		return (0);
 
-	while (s[i])
+	for (i = 0; s[i] != '\0'; i++)
 	{
 		if (s[i] < '0' || s[i] > '9')
 			return (0);
-		i++;
 	}
+
 	return (1);
 }
 
 /**
- * _strlen - returns length of a string
+ * _strlen - returns the length of a string
  * @s: string
- * Return: length
+ *
+ * Return: length of the string
  */
 int _strlen(char *s)
 {
-	int len = 0;
+	int len;
 
-	while (s[len])
+	len = 0;
+	while (s[len] != '\0')
 		len++;
+
 	return (len);
 }
 
 /**
- * errors - prints Error and exits with 98
+ * print_error - prints Error and exits with status 98
  */
-void errors(void)
+void print_error(void)
 {
 	_putchar('E');
 	_putchar('r');
@@ -54,29 +58,38 @@ void errors(void)
  * main - multiplies two positive numbers
  * @argc: argument count
  * @argv: argument vector
- * Return: 0
+ *
+ * Return: 0 on success
  */
 int main(int argc, char *argv[])
 {
-	char *num1, *num2;
-	int len1, len2, len, i, j, n1, n2, carry;
+	char *num1;
+	char *num2;
+	int len1;
+	int len2;
+	int len;
+	int i;
+	int j;
+	int n1;
+	int n2;
+	int carry;
 	int *result;
 
 	if (argc != 3)
-		errors();
+		print_error();
 
 	num1 = argv[1];
 	num2 = argv[2];
 
 	if (!is_digit(num1) || !is_digit(num2))
-		errors();
+		print_error();
 
 	len1 = _strlen(num1);
 	len2 = _strlen(num2);
 	len = len1 + len2;
 
 	result = malloc(sizeof(int) * len);
-	if (!result)
+	if (result == NULL)
 		return (1);
 
 	for (i = 0; i < len; i++)
