@@ -6,58 +6,58 @@
 /**
  * is_digit_str - checks if a string contains only digits
  * @s: string to check
- *
- * Return: 1 if all digits, 0 otherwise
+ * Return: 1 if valid, 0 otherwise
  */
 int is_digit_str(char *s)
 {
-    while (*s)
+    int i = 0;
+
+    if (!s || !s[0])
+        return (0);
+
+    while (s[i])
     {
-        if (!isdigit(*s))
-            return 0;
-        s++;
+        if (!isdigit(s[i]))
+            return (0);
+        i++;
     }
-    return 1;
+    return (1);
 }
 
 /**
  * main - multiplies two positive numbers
  * @argc: argument count
  * @argv: argument vector
- *
  * Return: 0 on success, 98 on error
  */
 int main(int argc, char *argv[])
 {
-    int len1, len2, len, i, j, carry, n1, n2, sum;
-    char *num1, *num2;
-    int *result;
+    int i, j, carry, n1, n2, sum;
+    int len1, len2, len, start = 0;
+    int *result = NULL;
 
     if (argc != 3 || !is_digit_str(argv[1]) || !is_digit_str(argv[2]))
     {
         printf("Error\n");
-        return 98;
+        return (98);
     }
 
-    num1 = argv[1];
-    num2 = argv[2];
-    len1 = strlen(num1);
-    len2 = strlen(num2);
+    len1 = strlen(argv[1]);
+    len2 = strlen(argv[2]);
     len = len1 + len2;
 
-    /* Allocate memory for result array */
     result = calloc(len, sizeof(int));
     if (!result)
-        return 98;
+        return (98);
 
-    /* Multiply each digit */
     for (i = len1 - 1; i >= 0; i--)
     {
-        n1 = num1[i] - '0';
+        n1 = argv[1][i] - '0';
         carry = 0;
+
         for (j = len2 - 1; j >= 0; j--)
         {
-            n2 = num2[j] - '0';
+            n2 = argv[2][j] - '0';
             sum = n1 * n2 + result[i + j + 1] + carry;
             carry = sum / 10;
             result[i + j + 1] = sum % 10;
@@ -65,20 +65,18 @@ int main(int argc, char *argv[])
         result[i + j + 1] += carry;
     }
 
-    /* Skip leading zeros */
-    i = 0;
-    while (i < len && result[i] == 0)
-        i++;
+    while (start < len && result[start] == 0)
+        start++;
 
-    if (i == len)
+    if (start == len)
         printf("0");
     else
-        for (; i < len; i++)
+        for (i = start; i < len; i++)
             printf("%d", result[i]);
 
     printf("\n");
 
-    free(result); /* Fixed memory leak */
-    return 0;
+    free(result);
+    return (0);
 }
 
