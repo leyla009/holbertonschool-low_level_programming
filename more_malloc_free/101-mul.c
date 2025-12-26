@@ -44,41 +44,41 @@ int _strlen(char *s)
  */
 void print_error(void)
 {
-	char *error = "Error\n";
-	int i;
-
-	for (i = 0; error[i] != '\0'; i++)
-		_putchar(error[i]);
-
+	_putchar('E');
+	_putchar('r');
+	_putchar('r');
+	_putchar('o');
+	_putchar('r');
+	_putchar('\n');
 	exit(98);
 }
 
 /**
- * print_result - prints the result array
- * @result: result array
- * @len: length of result
+ * init_result - allocates and initializes result array
+ * @len: length to allocate
+ *
+ * Return: pointer to result array or NULL on failure
  */
-void print_result(int *result, int len)
+int *init_result(int len)
 {
-	int i = 0;
+	int *result;
+	int i;
 
-	while (i < len && result[i] == 0)
-		i++;
+	result = malloc(sizeof(int) * len);
+	if (result == NULL)
+		return (NULL);
 
-	if (i == len)
-		_putchar('0');
+	for (i = 0; i < len; i++)
+		result[i] = 0;
 
-	for (; i < len; i++)
-		_putchar(result[i] + '0');
-
-	_putchar('\n');
+	return (result);
 }
 
 /**
- * multiply - performs the multiplication
- * @num1: first number string
- * @num2: second number string
- * @result: result array
+ * multiply - performs multiplication of two number strings
+ * @num1: first number
+ * @num2: second number
+ * @result: array to store result
  * @len1: length of num1
  * @len2: length of num2
  */
@@ -103,6 +103,24 @@ void multiply(char *num1, char *num2, int *result, int len1, int len2)
 }
 
 /**
+ * print_result - prints the multiplication result
+ * @result: result array
+ * @len: length of result
+ */
+void print_result(int *result, int len)
+{
+	int i = 0;
+
+	while (i < len - 1 && result[i] == 0)
+		i++;
+
+	for (; i < len; i++)
+		_putchar(result[i] + '0');
+
+	_putchar('\n');
+}
+
+/**
  * main - multiplies two positive numbers
  * @argc: argument count
  * @argv: argument vector
@@ -112,7 +130,7 @@ void multiply(char *num1, char *num2, int *result, int len1, int len2)
 int main(int argc, char *argv[])
 {
 	char *num1, *num2;
-	int len1, len2, len, i;
+	int len1, len2, len;
 	int *result;
 
 	if (argc != 3)
@@ -128,12 +146,9 @@ int main(int argc, char *argv[])
 	len2 = _strlen(num2);
 	len = len1 + len2;
 
-	result = malloc(sizeof(int) * len);
+	result = init_result(len);
 	if (result == NULL)
 		exit(98);
-
-	for (i = 0; i < len; i++)
-		result[i] = 0;
 
 	multiply(num1, num2, result, len1, len2);
 	print_result(result, len);
