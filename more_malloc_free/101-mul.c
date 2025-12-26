@@ -1,16 +1,17 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "holberton.h"
+#include <stdlib.h>
 
 /**
- * _isdigit - checks if a string contains only digits
+ * is_digit - checks if a string contains only digits
  * @s: string to check
- *
  * Return: 1 if all digits, 0 otherwise
  */
-int _isdigit(char *s)
+int is_digit(char *s)
 {
 	int i = 0;
+
+	if (!s)
+		return (0);
 
 	while (s[i])
 	{
@@ -22,26 +23,30 @@ int _isdigit(char *s)
 }
 
 /**
- * _strlen - returns the length of a string
+ * _strlen - returns length of a string
  * @s: string
- *
  * Return: length
  */
 int _strlen(char *s)
 {
-	int i = 0;
+	int len = 0;
 
-	while (s[i])
-		i++;
-	return (i);
+	while (s[len])
+		len++;
+	return (len);
 }
 
 /**
- * errors - prints Error and exits with status 98
+ * errors - prints Error and exits with 98
  */
 void errors(void)
 {
-	printf("Error\n");
+	_putchar('E');
+	_putchar('r');
+	_putchar('r');
+	_putchar('o');
+	_putchar('r');
+	_putchar('\n');
 	exit(98);
 }
 
@@ -49,13 +54,12 @@ void errors(void)
  * main - multiplies two positive numbers
  * @argc: argument count
  * @argv: argument vector
- *
- * Return: 0 on success
+ * Return: 0
  */
 int main(int argc, char *argv[])
 {
 	char *num1, *num2;
-	int len1, len2, len, i, j, carry, n1, n2;
+	int len1, len2, len, i, j, n1, n2, carry;
 	int *result;
 
 	if (argc != 3)
@@ -64,7 +68,7 @@ int main(int argc, char *argv[])
 	num1 = argv[1];
 	num2 = argv[2];
 
-	if (!_isdigit(num1) || !_isdigit(num2))
+	if (!is_digit(num1) || !is_digit(num2))
 		errors();
 
 	len1 = _strlen(num1);
@@ -108,3 +112,4 @@ int main(int argc, char *argv[])
 	free(result);
 	return (0);
 }
+
