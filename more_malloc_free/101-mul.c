@@ -1,87 +1,110 @@
-#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "holberton.h"
 
 /**
- * _puts - prints a string followed by a new newline
- * @str: str to print
+ * _isdigit - checks if a string contains only digits
+ * @s: string to check
+ *
+ * Return: 1 if all digits, 0 otherwise
  */
-
-void _puts(char *str)
+int _isdigit(char *s)
 {
-	int a = 0;
+	int i = 0;
 
-	while (str[a])
+	while (s[i])
 	{
-		_putchar(str[a]);
-		a++;
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+		i++;
 	}
+	return (1);
 }
 
 /**
- * _atoi - converts a string to an int
- * @s: pointer to string
- * Return: converted int
+ * _strlen - returns the length of a string
+ * @s: string
+ *
+ * Return: length
  */
-
-int _atoi(const char *s)
+int _strlen(char *s)
 {
-	int sign = 1;
-	unsigned long int resp = 0, first, a;
+	int i = 0;
 
-	for (first = 0; !(s[first] >= 48 && s[first] <= 57); first++)
-		if (s[first] == '-')
-			sign *= -1;
-
-	for (a = first; s[a] >= 48 && s[a] <= 57; a++)
-	{
-		resp *= 10;
-		resp += (s[a] - 48);
-	}
-
-	return (sign * resp);
+	while (s[i])
+		i++;
+	return (i);
 }
 
 /**
- * print_int - prints an integer
- * @n: int
- * Return: void
+ * errors - prints Error and exits with status 98
  */
-
-void print_int(unsigned long int n)
+void errors(void)
 {
-	unsigned long int divisor = 1;
-	unsigned long int a, resp;
-
-	for (a = 0; n / divisor > 9; a++, divisor *= 10)
-		;
-
-	for (; divisor >= 1; n %= divisor, divisor /= 10)
-	{
-		resp = n / divisor;
-		_putchar('0' + resp);
-	}
+	printf("Error\n");
+	exit(98);
 }
 
 /**
- * main - returns the product of two positive numbers
- * @argc: number of arguments
- * @argv: arguments
- * Return: 0
+ * main - multiplies two positive numbers
+ * @argc: argument count
+ * @argv: argument vector
+ *
+ * Return: 0 on success
  */
-
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
-	(void)argc;
+	char *num1, *num2;
+	int len1, len2, len, i, j, carry, n1, n2;
+	int *result;
 
-	if (argc != 3 || !_atoi(argv[1]) || !_atoi(argv[2]))
+	if (argc != 3)
+		errors();
+
+	num1 = argv[1];
+	num2 = argv[2];
+
+	if (!_isdigit(num1) || !_isdigit(num2))
+		errors();
+
+	len1 = _strlen(num1);
+	len2 = _strlen(num2);
+	len = len1 + len2;
+
+	result = malloc(sizeof(int) * len);
+	if (!result)
+		return (1);
+
+	for (i = 0; i < len; i++)
+		result[i] = 0;
+
+	for (i = len1 - 1; i >= 0; i--)
 	{
-		_puts("Error\n");
-		exit(98);
+		n1 = num1[i] - '0';
+		carry = 0;
+
+		for (j = len2 - 1; j >= 0; j--)
+		{
+			n2 = num2[j] - '0';
+			carry += result[i + j + 1] + (n1 * n2);
+			result[i + j + 1] = carry % 10;
+			carry /= 10;
+		}
+		result[i + j + 1] += carry;
 	}
 
-	print_int(_atoi(argv[1]) * _atoi(argv[2]));
+	i = 0;
+	while (i < len && result[i] == 0)
+		i++;
+
+	if (i == len)
+		_putchar('0');
+
+	for (; i < len; i++)
+		_putchar(result[i] + '0');
+
 	_putchar('\n');
 
+	free(result);
 	return (0);
 }
