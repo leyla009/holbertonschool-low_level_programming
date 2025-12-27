@@ -1,151 +1,158 @@
-#include "holberton.h"
+#include "main.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <ctype.h>
 
 /**
- * is_digit - checks if string is numeric
- * @s: string
- * Return: 1 if numeric, 0 otherwise
+ * _is_zero - determine if any number is zero
+ * @argv: argument vector.
+ *
+ * Return: no return.
  */
-int is_digit(char *s)
+void _is_zero(char *argv[])
 {
-	int i;
+    int mul, num1 = 1, num2 = 1;
 
-	if (!s || !s[0])
-		return (0);
+    for (mul = 0; argv[1][mul]; mul++)
+        if (argv[1][mul] != '0')
+        {
+            num1 = 0;
+            break;
+        }
 
-	for (i = 0; s[i]; i++)
-		if (s[i] < '0' || s[i] > '9')
-			return (0);
+    for (mul = 0; argv[2][mul]; mul++)
+        if (argv[2][mul] != '0')
+        {
+            num2 = 0;
+            break;
+        }
 
-	return (1);
+    if (num1 == 1 || num2 == 1)
+    {
+        printf("0\n");
+        exit(0);
+    }
 }
 
 /**
- * _strlen - returns string length
- * @s: string
- * Return: length
+ * _initialize_array - set memory to zero in a new array
+ * @ar: char array.
+ * @lar: length of the char array.
+ *
+ * Return: pointer of a char array.
  */
-int _strlen(char *s)
+char *_initialize_array(char *ar, int lar)
 {
-	int len = 0;
+    int mul = 0;
 
-	while (s[len])
-		len++;
-
-	return (len);
+    for (mul = 0; mul < lar; mul++)
+        ar[mul] = '0';
+    ar[lar] = '\0';
+    return (ar);
 }
 
 /**
- * print_error - prints Error and exits
+ * _checknum - determines length of the number
+ * and checks if number is in base 10.
+ * @argv: arguments vector.
+ * @n: row of the array.
+ *
+ * Return: length of the number.
  */
-void print_error(void)
+int _checknum(char *argv[], int n)
 {
-	_putchar('E');
-	_putchar('r');
-	_putchar('r');
-	_putchar('o');
-	_putchar('r');
-	_putchar('\n');
-	exit(98);
+    int ln;
+
+    for (ln = 0; argv[n][ln]; ln++)
+        if (!isdigit(argv[n][ln]))
+        {
+            printf("Error\n");
+            exit(98);
+        }
+
+    return (ln);
 }
 
 /**
- * init_result - allocates result array
- * @len: size
- * Return: pointer or NULL
- */
-int *init_result(int len)
-{
-	int *result, i;
-
-	result = malloc(sizeof(int) * len);
-	if (!result)
-		return (NULL);
-
-	for (i = 0; i < len; i++)
-		result[i] = 0;
-
-	return (result);
-}
-
-/**
- * multiply - multiplies two numbers
- * @num1: first number
- * @num2: second number
- * @result: result array
- * @len1: length of num1
- * @len2: length of num2
- */
-void multiply(char *num1, char *num2, int *result, int len1, int len2)
-{
-	int i, j, n1, n2, carry;
-
-	for (i = len1 - 1; i >= 0; i--)
-	{
-		n1 = num1[i] - '0';
-		carry = 0;
-
-		for (j = len2 - 1; j >= 0; j--)
-		{
-			n2 = num2[j] - '0';
-			carry += result[i + j + 1] + (n1 * n2);
-			result[i + j + 1] = carry % 10;
-			carry /= 10;
-		}
-		result[i + j + 1] += carry;
-	}
-}
-
-/**
- * print_result - prints result
- * @result: result array
- * @len: length
- */
-void print_result(int *result, int len)
-{
-	int i = 0;
-
-	while (i < len - 1 && result[i] == 0)
-		i++;
-
-	for (; i < len; i++)
-		_putchar(result[i] + '0');
-
-	_putchar('\n');
-}
-
-/**
- * main - multiplies two positive numbers
- * @argc: argument count
- * @argv: argument vector
- * Return: 0
+ * main - Entry point.
+ * program that multiplies two positive numbers.
+ * @argc: number of arguments.
+ * @argv: arguments vector.
+ *
+ * Return: 0 - success.
  */
 int main(int argc, char *argv[])
 {
-	char *num1, *num2;
-	int len1, len2, len;
-	int *result;
+    int ln1, ln2, lnout, add, addl, mul, j, k, ca;
+    char *nout;
 
-	if (argc != 3)
-		print_error();
+    if (argc != 3)
+    {
+        printf("Error\n");
+        exit(98);
+    }
 
-	num1 = argv[1];
-	num2 = argv[2];
+    ln1 = _checknum(argv, 1);
+    ln2 = _checknum(argv, 2);
+    _is_zero(argv);
 
-	if (!is_digit(num1) || !is_digit(num2))
-		print_error();
+    lnout = ln1 + ln2;
+    nout = malloc(lnout + 1);
+    if (nout == NULL)
+    {
+        printf("Error\n");
+        exit(98);
+    }
 
-	len1 = _strlen(num1);
-	len2 = _strlen(num2);
-	len = len1 + len2;
+    nout = _initialize_array(nout, lnout);
+    k = lnout - 1;
+    mul = ln1 - 1;
+    j = ln2 - 1;
+    ca = addl = 0;
 
-	result = init_result(len);
-	if (!result)
-		exit(98);
-
-	multiply(num1, num2, result, len1, len2);
-	print_result(result, len);
-
-	free(result);
-	return (0);
+    for (; k >= 0; k--, mul--)
+    {
+        if (mul < 0)
+        {
+            if (addl > 0)
+            {
+                add = (nout[k] - '0') + addl;
+                if (add > 9)
+                    nout[k - 1] = (add / 10) + '0';
+                nout[k] = (add % 10) + '0';
+            }
+            mul = ln1 - 1;
+            j--;
+            addl = 0;
+            ca++;
+            k = lnout - (1 + ca);
+        }
+        if (j < 0)
+        {
+            if (nout[0] != '0')
+                break;
+            lnout--;
+            free(nout);
+            nout = malloc(lnout + 1);
+            if (nout == NULL)
+            {
+                printf("Error\n");
+                exit(98);
+            }
+            nout = _initialize_array(nout, lnout);
+            k = lnout - 1;
+            mul = ln1 - 1;
+            j = ln2 - 1;
+            ca = addl = 0;
+        }
+        if (j >= 0)
+        {
+            add = ((argv[1][mul] - '0') * (argv[2][j] - '0')) + (nout[k] - '0') + addl;
+            addl = add / 10;
+            nout[k] = (add % 10) + '0';
+        }
+    }
+    _puts(nout);
+    free(nout);
+    return (0);
 }
