@@ -2,6 +2,22 @@
 #include <stdlib.h>
 
 /**
+ * _strlen - returns the length of a string
+ * @s: string
+ *
+ * Return: length of the string
+ */
+int _strlen(char *s)
+{
+	int len = 0;
+
+	while (s[len])
+		len++;
+
+	return (len);
+}
+
+/**
  * new_dog - creates a new dog
  * @name: name of the dog
  * @age: age of the dog
@@ -12,7 +28,7 @@
 dog_t *new_dog(char *name, float age, char *owner)
 {
 	dog_t *dog;
-	int i, name_len = 0, owner_len = 0;
+	int i;
 
 	if (name == NULL || owner == NULL)
 		return (NULL);
@@ -21,19 +37,14 @@ dog_t *new_dog(char *name, float age, char *owner)
 	if (dog == NULL)
 		return (NULL);
 
-	while (name[name_len])
-		name_len++;
-	while (owner[owner_len])
-		owner_len++;
-
-	dog->name = malloc(sizeof(char) * (name_len + 1));
+	dog->name = malloc(sizeof(char) * (_strlen(name) + 1));
 	if (dog->name == NULL)
 	{
 		free(dog);
 		return (NULL);
 	}
 
-	dog->owner = malloc(sizeof(char) * (owner_len + 1));
+	dog->owner = malloc(sizeof(char) * (_strlen(owner) + 1));
 	if (dog->owner == NULL)
 	{
 		free(dog->name);
@@ -41,11 +52,11 @@ dog_t *new_dog(char *name, float age, char *owner)
 		return (NULL);
 	}
 
-	for (i = 0; i < name_len; i++)
+	for (i = 0; name[i]; i++)
 		dog->name[i] = name[i];
 	dog->name[i] = '\0';
 
-	for (i = 0; i < owner_len; i++)
+	for (i = 0; owner[i]; i++)
 		dog->owner[i] = owner[i];
 	dog->owner[i] = '\0';
 
