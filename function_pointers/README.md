@@ -28,7 +28,9 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89
 | File | Description |
 |------|-------------|
 | `0-print_name.c` | Implements `print_name` that prints a name using a function pointer |
-| `function_pointers.h` | Header file containing prototypes and necessary includes |
+| `1-array_iterator.c` | Implements `array_iterator` to apply a function to each array element |
+| `2-int_index.c` | Implements `int_index` to search for an integer using a comparison function |
+| `function_pointers.h` | Header file with all function prototypes for exercises 0-2 |
 
 ## Example Usage
 ```c
@@ -40,6 +42,54 @@ Output:
 Hello, my name is Bob
 Hello, my uppercase name is BOB DYLAN
 
+3-Calc: Simple Calculator Using Function Pointers
+Files
+File	Description
+3-main.c	Main program for the calculator
+3-op_functions.c	Implements basic operations (+, -, *, /, %)
+3-get_op_func.c	Selects the correct operation function based on the operator
+3-calc.h	Header file with struct and function prototypes for the calculator
+Usage
+
+Compile the program:
+
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 3-main.c 3-op_functions.c 3-get_op_func.c -o calc
+
+
+Run examples:
+
+./calc 1 + 1
+# Output: 2
+
+./calc 1024 / 10
+# Output: 102
+
+./calc 1024 '%' 98
+# Output: 44
+
+
+Error Handling
+
+Wrong number of arguments → prints Error and exits with status 98
+
+Invalid operator → prints Error and exits with status 99
+
+Division or modulo by 0 → prints Error and exits with status 100
+
+Notes
+
+All programs use Betty coding style
+
+Function pointers are used for flexibility and callbacks
+
+The calculator uses strict constraints:
+
+Maximum of 3 if statements in main
+
+No loops in main
+
+get_op_func uses only one while loop and one if statement
+
 Author
 
-Leyla Khaspolad
+Leyla Khaspoladi
