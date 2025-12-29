@@ -14,4 +14,15 @@
  */
 void print_name(char *name, void (*f)(char *));
 
+/**
+ * array_iterator - executes a function on each element of an array
+ * @array: pointer to the first element of the array
+ * @size: number of elements in the array
+ * @action: pointer to a function that takes an int and returns void
+ *
+ * Return: Nothing
+ */
+void array_iterator(int *array, size_t size, void (*action)(int));
+
 #endif /* FUNCTION_POINTERS_H */
+
