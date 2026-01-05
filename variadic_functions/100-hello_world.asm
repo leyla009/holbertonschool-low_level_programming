@@ -1,18 +1,18 @@
-global _start
+section .data:
+	message db "Hello, World", 10
 
-section .data
-    msg db 'Hello, World', 0xA
-    len equ $ - msg
+section .text:
+	global main
 
-section .text
-_start:
-    mov rax, 1
-    mov rdi, 1
-    mov rsi, msg
-    mov rdx, len
-    syscall
+main:
+	mov rax, 1		; use the write syscall
+	mov rdi, 1		; use stdout as the file descriptor
+	mov rsi, message	; address of string to output
+	mov rdx, 13		; number of bytes
+	syscall			; invoke the write syscall
 
-    mov rax, 60
-    xor rdi, rdi
-    syscall
+	; time to exit
 
+	mov rax, 60		; use the exit syscall
+	mov rdi, 0		; return value
+	syscall			; invoke the exit syscall
