@@ -1,20 +1,18 @@
+global _start
+
 section .data
-    msg db "Hello, World", 10     ; message + newline
-    len equ $ - msg               ; length of the message
+    msg db 'Hello, World', 0xA
+    len equ $ - msg
 
 section .text
-    global _start
-
 _start:
-    ; write(1, msg, len)
-    mov rax, 1        ; syscall number for sys_write
-    mov rdi, 1        ; file descriptor 1 = stdout
-    mov rsi, msg      ; pointer to message
-    mov rdx, len      ; length of message
-    syscall           ; invoke system call
+    mov rax, 1          ; syscall: write
+    mov rdi, 1          ; stdout
+    mov rsi, msg
+    mov rdx, len
+    syscall
 
-    ; exit(0)
-    mov rax, 60       ; syscall number for sys_exit
-    xor rdi, rdi      ; exit code 0
+    mov rax, 60         ; syscall: exit
+    xor rdi, rdi
     syscall
 
