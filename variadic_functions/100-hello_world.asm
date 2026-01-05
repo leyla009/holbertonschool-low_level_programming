@@ -1,18 +1,55 @@
-global _start
-
 section .data
-    msg db 'Hello, World', 0xA
-    len equ $ - msg
+
+
+	msg db "Hello, World", 10
+
+
+	len equ $ - msg
+
+
+
+
 
 section .text
-_start:
-    mov rax, 1
-    mov rdi, 1
-    mov rsi, msg
-    mov rdx, len
-    syscall
 
-    mov rax, 60
-    xor rdi, rdi
-    syscall
 
+	global main
+
+
+
+
+
+main:
+
+
+	; write(1, msg, len)
+
+
+	mov rax, 1          ; syscall: write
+
+
+	mov rdi, 1          ; fd: stdout
+
+
+	mov rsi, msg        ; buf
+
+
+	mov rdx, len        ; count
+
+
+	syscall
+
+
+
+
+
+	; exit(0)
+
+
+	mov rax, 60         ; syscall: exit
+
+
+	xor rdi, rdi        ; status 0
+
+
+	syscall
