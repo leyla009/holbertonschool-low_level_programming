@@ -11,41 +11,39 @@
  */
 int main(int argc, char *argv[])
 {
-	char key[7];
+	char k[7];
 	char *u = argv[1];
 	char *l = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-	int len, i, tmp;
+	int len, i, res;
 
 	if (argc != 2)
 		return (1);
 
-	len = (int)strlen(u);
-	/* 1: length XOR 59 */
-	key[0] = l[(len ^ 59) & 63];
-	/* 2: sum XOR 79 */
-	for (i = 0, tmp = 0; i < len; i++)
-		tmp += u[i];
-	key[1] = l[(tmp ^ 79) & 63];
+	len = strlen(u);
+	/* 1: length XOR 59 | 2: sum XOR 79 */
+	k[0] = l[(len ^ 59) & 63];
+	for (i = 0, res = 0; i < len; i++)
+		res += u[i];
+	k[1] = l[(res ^ 79) & 63];
 	/* 3: product XOR 85 */
-	for (i = 0, tmp = 1; i < len; i++)
-		tmp *= u[i];
-	key[2] = l[(tmp ^ 85) & 63];
+	for (i = 0, res = 1; i < len; i++)
+		res *= u[i];
+	k[2] = l[(res ^ 85) & 63];
 	/* 4: max char XOR 14 */
-	for (i = 0, tmp = 0; i < len; i++)
-		if (u[i] > tmp)
-			tmp = u[i];
-	srand(tmp ^ 14);
-	key[3] = l[rand() & 63];
+	for (i = 0, res = 0; i < len; i++)
+		if (u[i] > res)
+			res = u[i];
+	srand(res ^ 14);
+	k[3] = l[rand() & 63];
 	/* 5: sum of squares XOR 239 */
-	for (i = 0, tmp = 0; i < len; i++)
-		tmp += (u[i] * u[i]);
-	key[4] = l[(tmp ^ 239) & 63];
+	for (i = 0, res = 0; i < len; i++)
+		res += (u[i] * u[i]);
+	k[4] = l[(res ^ 239) & 63];
 	/* 6: random loop based on first char XOR 229 */
-	for (i = 0, tmp = 0; i < u[0]; i++)
-		tmp = rand();
-	key[5] = l[(tmp ^ 229) & 63];
-
-	key[6] = '\0';
-	printf("%s", key);
+	for (i = 0, res = 0; i < u[0]; i++)
+		res = rand();
+	k[5] = l[(res ^ 229) & 63];
+	k[6] = '\0';
+	printf("%s", k);
 	return (0);
 }
