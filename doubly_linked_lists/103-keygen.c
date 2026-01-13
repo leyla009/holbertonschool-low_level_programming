@@ -3,57 +3,54 @@
 #include <string.h>
 
 /**
- * main - Keygen for crackme5.
- * @argc: Argument count.
- * @argv: Argument vector.
- * Return: 0 on success, 1 on error.
+ * main - Keygen for crackme5
+ * @argc: argument count
+ * @argv: argument vector
+ * Return: 0 on success, 1 on error
  */
 int main(int argc, char *argv[])
 {
-	char key[7];
-	char *username;
-	int len, i, res;
-	char *lookup = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+	char *u = argv[1];
+	char *l = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+	char k[7];
+	int len, i, tmp;
 
 	if (argc != 2)
 		return (1);
 
-	username = argv[1];
-	len = strlen(username);
+	len = strlen(u);
 
-	/* Character 1: Based on length */
-	key[0] = lookup[(len ^ 59) & 63];
+	/* Character 1: Length check */
+	k[0] = l[(len ^ 59) & 63];
 
-	/* Character 2: Sum of ASCII */
-	for (i = 0, res = 0; i < len; i++)
-		res += username[i];
-	key[1] = lookup[(res ^ 79) & 63];
+	/* Character 2: Sum check */
+	for (i = 0, tmp = 0; i < len; i++)
+		tmp += u[i];
+	k[1] = l[(tmp ^ 79) & 63];
 
-	/* Character 3: Product of ASCII */
-	for (i = 0, res = 1; i < len; i++)
-		res *= username[i];
-	key[2] = lookup[(res ^ 85) & 63];
+	/* Character 3: Product check */
+	for (i = 0, tmp = 1; i < len; i++)
+		tmp *= u[i];
+	k[2] = l[(tmp ^ 85) & 63];
 
-	/* Character 4: Highest ASCII value */
-	res = 0;
-	for (i = 0; i < len; i++)
-		if (username[i] > res)
-			res = username[i];
-	srand(res ^ 14);
-	key[3] = lookup[rand() & 63];
+	/* Character 4: Max char check */
+	for (i = 0, tmp = u[0]; i < len; i++)
+		if (u[i] > tmp)
+			tmp = u[i];
+	srand(tmp ^ 14);
+	k[3] = l[rand() & 63];
 
-	/* Character 5: Sum of squares */
-	for (i = 0, res = 0; i < len; i++)
-		res += (username[i] * username[i]);
-	key[4] = lookup[(res ^ 239) & 63];
+	/* Character 5: Sum of squares check */
+	for (i = 0, tmp = 0; i < len; i++)
+		tmp += (u[i] * u[i]);
+	k[4] = l[(tmp ^ 239) & 63];
 
-	/* Character 6: Random based on first character */
-	for (i = 0, res = 0; i < username[0]; i++)
-		res = rand();
-	key[5] = lookup[(res ^ 229) & 63];
+	/* Character 6: Random loop check */
+	for (i = 0, tmp = 0; i < u[0]; i++)
+		tmp = rand();
+	k[5] = l[(tmp ^ 229) & 63];
 
-	key[6] = '\0';
-	printf("%s", key);
-
+	k[6] = '\0';
+	printf("%s", k);
 	return (0);
 }
