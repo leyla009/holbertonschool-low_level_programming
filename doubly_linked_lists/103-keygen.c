@@ -4,9 +4,8 @@
 
 /**
  * main - Keygen for crackme5.
- * @argc: The number of arguments.
- * @argv: The argument vector.
- *
+ * @argc: Number of arguments.
+ * @argv: Argument vector.
  * Return: 0 on success, 1 on failure.
  */
 int main(int argc, char *argv[])
@@ -18,28 +17,22 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 		return (1);
-
 	len = strlen(u);
-	/* 1: length XOR 59 | 2: sum XOR 79 */
 	k[0] = l[(len ^ 59) & 63];
 	for (i = 0, res = 0; i < len; i++)
 		res += u[i];
 	k[1] = l[(res ^ 79) & 63];
-	/* 3: product XOR 85 */
 	for (i = 0, res = 1; i < len; i++)
 		res *= u[i];
 	k[2] = l[(res ^ 85) & 63];
-	/* 4: max char XOR 14 */
 	for (i = 0, res = 0; i < len; i++)
 		if (u[i] > res)
 			res = u[i];
 	srand(res ^ 14);
 	k[3] = l[rand() & 63];
-	/* 5: sum of squares XOR 239 */
 	for (i = 0, res = 0; i < len; i++)
 		res += (u[i] * u[i]);
 	k[4] = l[(res ^ 239) & 63];
-	/* 6: random loop based on first char XOR 229 */
 	for (i = 0, res = 0; i < u[0]; i++)
 		res = rand();
 	k[5] = l[(res ^ 229) & 63];
