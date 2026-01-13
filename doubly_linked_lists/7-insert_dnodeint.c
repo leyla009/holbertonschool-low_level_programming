@@ -40,7 +40,7 @@ dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 	new->n = n;
 	new->next = temp->next;
 	new->prev = temp;
-	
+
 	/* Rewire neighboring nodes */
 	temp->next->prev = new;
 	temp->next = new;
