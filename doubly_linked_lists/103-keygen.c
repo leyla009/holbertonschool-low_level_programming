@@ -17,22 +17,29 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 		return (1);
+
 	len = strlen(u);
+	/* Character 1: Length XOR 59 */
 	k[0] = l[(len ^ 59) & 63];
+	/* Character 2: Sum XOR 79 */
 	for (i = 0, res = 0; i < len; i++)
 		res += u[i];
 	k[1] = l[(res ^ 79) & 63];
+	/* Character 3: Product XOR 85 */
 	for (i = 0, res = 1; i < len; i++)
 		res *= u[i];
 	k[2] = l[(res ^ 85) & 63];
+	/* Character 4: Max char search + rand */
 	for (i = 0, res = 0; i < len; i++)
 		if (u[i] > res)
 			res = u[i];
 	srand(res ^ 14);
 	k[3] = l[rand() & 63];
+	/* Character 5: Sum of squares XOR 239 */
 	for (i = 0, res = 0; i < len; i++)
 		res += (u[i] * u[i]);
 	k[4] = l[(res ^ 239) & 63];
+	/* Character 6: Random loop based on first char XOR 229 */
 	for (i = 0, res = 0; i < u[0]; i++)
 		res = rand();
 	k[5] = l[(res ^ 229) & 63];
