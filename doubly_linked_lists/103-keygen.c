@@ -3,55 +3,56 @@
 #include <string.h>
 
 /**
- * main - Keygen for crackme5.
- * @argc: Argument count.
- * @argv: Argument vector.
- * Return: 0 on success, 1 on failure.
+ * main - Keygen for crackme5
+ * @argc: Argument count
+ * @argv: Argument vector
+ * Return: 0
  */
 int main(int argc, char *argv[])
 {
-	char *u = argv[1];
-	char *l = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-	char k[7];
-	int len, i, tmp;
+	char key[7];
+	char *username = argv[1];
+	char *lookup = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+	int len, i, res;
 
 	if (argc != 2)
 		return (1);
 
-	len = strlen(u);
+	len = strlen(username);
 
-	/* 1: Length XOR 59 */
-	k[0] = l[(len ^ 59) & 63];
+	/* Char 0: length XOR 59 */
+	key[0] = lookup[(len ^ 59) & 63];
 
-	/* 2: Sum of chars XOR 79 */
-	for (i = 0, tmp = 0; i < len; i++)
-		tmp += u[i];
-	k[1] = l[(tmp ^ 79) & 63];
+	/* Char 1: sum XOR 79 */
+	for (i = 0, res = 0; i < len; i++)
+		res += username[i];
+	key[1] = lookup[(res ^ 79) & 63];
 
-	/* 3: Product of chars XOR 85 */
-	for (i = 0, tmp = 1; i < len; i++)
-		tmp *= u[i];
-	k[2] = l[(tmp ^ 85) & 63];
+	/* Char 2: product XOR 85 */
+	for (i = 0, res = 1; i < len; i++)
+		res *= username[i];
+	key[2] = lookup[(res ^ 85) & 63];
 
-	/* 4: Max char search and srand seed (res ^ 14) */
-	for (i = 0, tmp = 0; i < len; i++)
-		if (u[i] > tmp)
-			tmp = u[i];
-	srand(tmp ^ 14);
-	k[3] = l[rand() & 63];
+	/* Char 3: max char seed */
+	res = 0;
+	for (i = 0; i < len; i++)
+		if (username[i] > res)
+			res = username[i];
+	srand(res ^ 14);
+	key[3] = lookup[rand() & 63];
 
-	/* 5: Sum of squares XOR 239 */
-	for (i = 0, tmp = 0; i < len; i++)
-		tmp += (u[i] * u[i]);
-	k[4] = l[(tmp ^ 239) & 63];
+	/* Char 4: sum of squares XOR 239 */
+	for (i = 0, res = 0; i < len; i++)
+		res += (username[i] * username[i]);
+	key[4] = lookup[(res ^ 239) & 63];
 
-	/* 6: Random loop based on FIRST char of username */
-	for (i = 0, tmp = 0; i < u[0]; i++)
-		tmp = rand();
-	k[5] = l[(tmp ^ 229) & 63];
+	/* Char 5: first char loop */
+	for (i = 0, res = 0; i < username[0]; i++)
+		res = rand();
+	key[5] = lookup[(res ^ 229) & 63];
 
-	k[6] = '\0';
-	printf("%s", k);
+	key[6] = '\0';
+	printf("%s", key);
 
 	return (0);
 }
