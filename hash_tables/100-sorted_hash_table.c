@@ -4,7 +4,8 @@
  * shash_table_create - Creates a sorted hash table.
  * @size: The size of the array.
  *
- * Return: A pointer to the newly created sorted hash table, or NULL on failure.
+ * Return: A pointer to the newly created sorted hash table,
+ * or NULL on failure.
  */
 shash_table_t *shash_table_create(unsigned long int size)
 {
@@ -33,7 +34,7 @@ shash_table_t *shash_table_create(unsigned long int size)
 }
 
 /**
- * insert_sorted - Inserts a node into the sorted doubly linked list of a table.
+ * insert_sorted - Inserts a node into the sorted doubly linked list.
  * @ht: A pointer to the sorted hash table.
  * @node: The node to insert.
  */
