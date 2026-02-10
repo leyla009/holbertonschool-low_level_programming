@@ -16,8 +16,7 @@ int main(void)
         {
             putchar(i);
             putchar(j);
-
-            /* The "End of the Road" check */
+            
             if (i != '8' || j != '9')
             {
                 putchar(',');
