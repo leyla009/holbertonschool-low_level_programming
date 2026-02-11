@@ -1,116 +1,57 @@
-📌 Overview
+<img height="50" align="right" src="https://raw.githubusercontent.com/fchavonet/fchavonet/refs/heads/main/assets/images/logo-holberton_school.webp" alt="Holberton School logo">
 
-This repository contains projects and exercises completed as part of the Holberton School Low-Level Programming curriculum. It focuses on building a strong foundation in C programming, understanding how software interacts with hardware, and mastering core computer science concepts such as memory management, pointers, recursion, data structures, and system-level programming.
+# Low-Level Programming & Algorithm
 
-The goal of this repository is not only to write working programs, but to write clean, efficient, and well-documented C code that follows Holberton's strict coding standards.
+This repository houses the projects completed during the **Low-Level Programming & Algorithm** track. The curriculum transitions from basic C syntax to complex data structures and system-level engineering, emphasising memory efficiency and manual resource management.
 
-🧠 Topics Covered
+## Tech Stack
 
-Throughout this repository, you will find projects covering:
+![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
+![Bash](https://img.shields.io/badge/bash-%234EAA25.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
+![Git](https://img.shields.io/badge/git-%23F05032.svg?style=for-the-badge&logo=git&logoColor=white)
+![Vim](https://img.shields.io/badge/VIM-%2311AB00.svg?style=for-the-badge&logo=vim&logoColor=white)
 
-C programming basics
+## Project Directory
 
-Compilation process (preprocessing, compiling, assembling, linking)
+| Project Code | Description | Key Concepts |
+| :--- | :--- | :--- |
+| **hello_world** | The entry point | Compilation process, `printf`, `puts` |
+| **variables_if_else_while** | Control flow | Loops, conditionals, ASCII logic |
+| **functions_nested_loops** | Modularity | Function prototypes, nested loops |
+| **more_functions...** | Advanced logic | Logical operators, arithmetic |
+| **pointers_arrays_strings** | Memory foundations | Addresses, dereferencing, arrays |
+| **recursion** | Functional logic | Call stack, base cases, recursion |
+| **argc_argv** | Command line arguments | `argc`, `argv`, CLI interactions |
+| **malloc_free** | Dynamic allocation | Heap memory, `malloc`, `free` |
+| **more_malloc_free** | Advanced allocation | `realloc`, `exit` statuses, memory safety |
+| **structures_typedef** | Custom data types | `struct`, `typedef`, data abstraction |
+| **function_pointers** | Execution logic | Pointers to functions, callbacks |
+| **variadic_functions** | Flexible arguments | `va_start`, `va_arg`, `va_list` |
+| **singly_linked_lists** | Linear data structures | Node traversal, dynamic linking |
+| **doubly_linked_lists** | Bi-directional lists | Forward/backward traversal        |
+| **file_io** | System calls | `open`, `read`, `write`, `close`, permissions         |
+| **hash_tables** | Efficient searching | Hash functions, collision handling         |
 
-Variables, control structures, and functions
+## General Requirements
 
-Pointers, arrays, and strings
+* **Editor:** `vi`, `vim`, or `emacs`.
+* **Compilation:** All files are compiled on **Ubuntu 22.04 LTS** using `gcc` with the flags `-Wall -Werror -Wextra -pedantic -std=gnu89`.
+* **Style:** All code adheres to the **Betty** style guide.
+* **Header Files:** Prototypes for all functions are stored in a `main.h` or project-specific header file.
 
-Recursion
+## Testing & Debugging
 
-Static and dynamic libraries
+To compile and check for memory leaks (crucial for projects like `malloc_free` or `linked_lists`):
 
-Memory allocation (malloc, free)
+```bash
+# Compile
+gcc -Wall -pedantic -Werror -Wextra -std=gnu89 *.c -o my_program
+```
 
-Structures and typedef
+### Check for memory leaks
+valgrind --leak-check=full ./my_program
 
-Function pointers
-
-Variadic functions
-
-Singly and doubly linked lists
-
-Bit manipulation
-
-File I/O
-
-Algorithms and complexity
-
-Each project directory contains:
-
-Source files (.c)
-
-Header files (.h)
-
-A project-specific README.md (when required)
-
-🛠️ Requirements
-
-Unless stated otherwise, all projects follow these requirements:
-
-Language: C
-
-Compiler: gcc
-
-Compilation flags:
-
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89
-
-Code style: Betty
-
-No global variables (unless explicitly allowed)
-
-No standard library functions unless permitted
-
-All files end with a new line
-
-▶️ Compilation & Usage
-
-Example compilation:
-
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o program_name
-
-Run the program:
-
-./program_name
-✍️ Coding Style
-
-All code follows the Betty style guide, which enforces:
-
-Clear and consistent formatting
-
-Proper indentation
-
-Descriptive function and variable names
-
-Complete function documentation
-
-To check style:
-
-betty *.c *.h
-🎯 Learning Objectives
-
-By completing the projects in this repository, I am developing the ability to:
-
-Write efficient and readable C programs
-
-Understand low-level memory operations
-
-Use recursion and pointers effectively
-
-Build and manipulate data structures
-
-Debug segmentation faults and memory leaks
-
-Read and understand system-level C code
-
-📎 Author
-
-Leyla Khaspolad
-Holberton School Student
-
-📄 License
-
-This repository is for educational purposes as part of the Holberton School curriculum.
-
-“Low-level programming teaches you how computers really work — not just how to make them work.”
+## Author
+**LEYLA KHASPOLADOVA**
+GitHub: [@leyla009](https://github.com/leyla009)
